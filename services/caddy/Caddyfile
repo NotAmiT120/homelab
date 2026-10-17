@@ -1,0 +1,21 @@
+# Internal TLS: Caddy runs its own CA. Trust it once per device
+# (see runbooks/trust-local-ca.md). Add one block per service.
+{
+	local_certs
+}
+
+home.{$HOMELAB_DOMAIN} {
+	reverse_proxy homepage:3000
+}
+
+status.{$HOMELAB_DOMAIN} {
+	reverse_proxy uptime-kuma:3001
+}
+
+metrics.{$HOMELAB_DOMAIN} {
+	reverse_proxy beszel:8090
+}
+
+dns.{$HOMELAB_DOMAIN} {
+	reverse_proxy adguard:80
+}

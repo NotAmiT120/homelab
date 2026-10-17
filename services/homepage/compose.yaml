@@ -1,0 +1,20 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: home.${HOMELAB_DOMAIN:-home.lan}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+    volumes:
+      - ./config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [proxy]
+    deploy:
+      resources:
+        limits: { cpus: "0.50", memory: 256M }
+
+networks:
+  proxy:
+    name: proxy

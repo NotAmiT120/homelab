@@ -1,0 +1,22 @@
+services:
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      HOMELAB_DOMAIN: ${HOMELAB_DOMAIN:-home.lan}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${DATA_DIR:-/srv/homelab}/caddy/data:/data
+      - ${DATA_DIR:-/srv/homelab}/caddy/config:/config
+    networks: [proxy]
+    deploy:
+      resources:
+        limits: { cpus: "0.50", memory: 128M }
+
+networks:
+  proxy:
+    name: proxy

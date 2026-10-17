@@ -1,0 +1,20 @@
+services:
+  adguard:
+    image: adguard/adguardhome:latest
+    container_name: adguard
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "3000:3000/tcp"   # first-run setup wizard only; remove after setup
+    volumes:
+      - ${DATA_DIR:-/srv/homelab}/adguard/work:/opt/adguardhome/work
+      - ${DATA_DIR:-/srv/homelab}/adguard/conf:/opt/adguardhome/conf
+    networks: [proxy]
+    deploy:
+      resources:
+        limits: { cpus: "0.50", memory: 256M }
+
+networks:
+  proxy:
+    name: proxy

@@ -1,0 +1,24 @@
+name: lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: shellcheck
+        run: shellcheck bootstrap.sh scripts/*.sh
+
+      - name: yamllint
+        run: |
+          pip install --quiet yamllint
+          yamllint -d '{extends: relaxed, rules: {line-length: disable}}' .
+
+      - name: docker compose config
+        run: |
+          cp .env.example .env
+          docker compose config -q

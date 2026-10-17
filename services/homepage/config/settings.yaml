@@ -1,0 +1,11 @@
+title: homelab
+theme: dark
+color: slate
+headerStyle: clean
+layout:
+  Infrastructure:
+    style: row
+    columns: 2
+  Monitoring:
+    style: row
+    columns: 2

@@ -1,0 +1,22 @@
+- Infrastructure:
+    - AdGuard Home:
+        href: https://dns.home.lan
+        description: DNS + ad blocking
+        icon: adguard-home.png
+        container: adguard
+    - Caddy:
+        description: Reverse proxy
+        icon: caddy.png
+        container: caddy
+
+- Monitoring:
+    - Uptime Kuma:
+        href: https://status.home.lan
+        description: Uptime checks + alerts
+        icon: uptime-kuma.png
+        container: uptime-kuma
+    - Beszel:
+        href: https://metrics.home.lan
+        description: Host + container metrics
+        icon: beszel.png
+        container: beszel

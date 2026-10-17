@@ -1,0 +1,21 @@
+# Watches running containers and notifies when a newer image exists.
+# Upgrades stay deliberate: bump the tag in git, then `docker compose up -d`.
+services:
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    restart: unless-stopped
+    command: serve
+    environment:
+      TZ: ${TZ:-UTC}
+      DIUN_WATCH_SCHEDULE: "0 9 * * *"
+      DIUN_PROVIDERS_DOCKER: "true"
+      DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT: "true"
+      DIUN_NOTIF_NTFY_ENDPOINT: ${DIUN_NTFY_ENDPOINT:-https://ntfy.sh}
+      DIUN_NOTIF_NTFY_TOPIC: ${DIUN_NTFY_TOPIC:-}
+    volumes:
+      - ${DATA_DIR:-/srv/homelab}/diun:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      resources:
+        limits: { cpus: "0.10", memory: 64M }

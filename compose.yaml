@@ -1,0 +1,12 @@
+# Root stack. `docker compose up -d` from the repo root starts everything.
+# Comment out a line to disable a service.
+name: homelab
+
+include:
+  - services/caddy/compose.yaml
+  - services/adguard/compose.yaml
+  - services/homepage/compose.yaml
+  - services/uptime-kuma/compose.yaml
+  - services/beszel/compose.yaml
+  - services/diun/compose.yaml
+

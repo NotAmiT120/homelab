@@ -1,0 +1,15 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma
+    restart: unless-stopped
+    volumes:
+      - ${DATA_DIR:-/srv/homelab}/uptime-kuma:/app/data
+    networks: [proxy]
+    deploy:
+      resources:
+        limits: { cpus: "0.50", memory: 256M }
+
+networks:
+  proxy:
+    name: proxy
